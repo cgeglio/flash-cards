@@ -9,6 +9,7 @@ class Game {
   constructor() {
     this.currentRound;
     this.cards = [];
+    this.deck;
   }
 
   start() {
@@ -17,10 +18,10 @@ class Game {
       this.cards.push(card);
     }
 
-    var deck = new Deck(this.cards);
-    this.currentRound = new Round(deck);
+    this.deck = new Deck(this.cards);
+    this.currentRound = new Round(this.deck);
 
-    this.printMessage(deck, this.currentRound);
+    this.printMessage(this.deck, this.currentRound);
     this.printQuestion(this.currentRound);
   }
 
