@@ -32,4 +32,4 @@ class Turn {
 
 
 
-module.exports = Card;
+module.exports = Turn;
