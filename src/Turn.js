@@ -8,8 +8,8 @@ class Turn {
     // this.cardInfo = cardInfo;
     this.id = cardInfo.id;
     this.question = cardInfo.question;
-    this.choices = cardInfo.choices;
-    this.answer = cardInfo.answer;
+    this.answers = cardInfo.answers;
+    this.correctAnswer = cardInfo.correctAnswer;
     this.correct = false;
   }
 
