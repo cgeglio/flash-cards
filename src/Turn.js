@@ -5,10 +5,7 @@ const util = require('./util');
 class Turn {
   constructor(guess, cardInfo) {
     this.guess = guess;
-    // this.cardInfo = cardInfo;
-    this.id = cardInfo.id;
-    this.question = cardInfo.question;
-    this.answers = cardInfo.answers;
+    this.cardInfo = cardInfo;
     this.correctAnswer = cardInfo.correctAnswer;
     this.correct = false;
   }
@@ -17,12 +14,13 @@ class Turn {
     return this.guess;
   }
 
-  // returnCard() {
-  //   return this.cardInfo;
-  // }
+  returnCard() {
+    return this.cardInfo;
+  }
 
   evaluateGuess() {
-    this.guess === this.answer ? this.correct = true : this.correct = false;
+    this.guess === this.correctAnswer ? this.correct = true : this.correct = false;
+    return this.correct;
   }
 
   giveFeedback() {
