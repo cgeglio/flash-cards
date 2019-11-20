@@ -10,7 +10,8 @@ describe('Turn', function() {
   let turn;
 
   beforeEach(function () {
-    card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug',
+      'capybara'], 'sea otter');
     turn = new Turn('pug', card);
   });
 
