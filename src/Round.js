@@ -40,8 +40,8 @@ class Round {
 
   endRound() {
     // eslint-disable-next-line no-console
-    console.log( `** Round over! ** You answered ${this.percent}% of the\
-       questions correctly!`);
+    console.log( `** Round over! ** You answered ${this.percent}% of the` +
+       ` questions correctly!`);
   }
 }
 
