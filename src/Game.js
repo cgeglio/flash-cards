@@ -14,7 +14,9 @@ class Game {
 
   start() {
     for (var i = 0; i < prototypeQuestions.length; i++) {
-      var card = new Card(prototypeQuestions[i].id, prototypeQuestions[i].question, prototypeQuestions[i].answers, prototypeQuestions[i].correctAnswer);
+      var card = new Card(prototypeQuestions[i].id,
+        prototypeQuestions[i].question, prototypeQuestions[i].answers,
+        prototypeQuestions[i].correctAnswer);
       this.cards.push(card);
     }
 
@@ -25,13 +27,14 @@ class Game {
     this.printQuestion(this.currentRound);
   }
 
-  printMessage(deck, round) {
-      console.log(`Welcome to FlashCards! You are playing with ${deck.countCards()} cards.
------------------------------------------------------------------------`)
+  printMessage(deck) {
+    console.log(`Welcome to FlashCards! You are playing with\
+         ${deck.countCards()} cards.-------------------------------------------\
+         ----------------------------`);
   }
 
   printQuestion(round) {
-      util.main(round);
+    util.main(round);
   }
 
 
