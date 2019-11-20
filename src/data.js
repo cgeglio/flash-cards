@@ -24,8 +24,8 @@ const prototypeData = [{
 }, {
   "id": 5,
   "question": "What type of prototype method loops through the existing array" +
-   " and applies a callback function that may mutate each element and return a" +
-   " new value?",
+   " and applies a callback function that may mutate each element and return" +
+   " a new value?",
   "answers": ["mutator method", "accessor method", "iteration method"],
   "correctAnswer": "iteration method"
 }, {
