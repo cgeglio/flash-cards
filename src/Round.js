@@ -23,7 +23,9 @@ class Round {
     turn.returnCard();
     turn.evaluateGuess();
 
-    if (turn.correct === false) { this.incorrectGuesses.push(this.currentCard.id)}
+    if (turn.correct === false) {
+      this.incorrectGuesses.push(this.currentCard.id)
+    }
 
     this.turns++;
     this.currentCard = this.deck.cards[`${this.turns}`];
@@ -33,11 +35,13 @@ class Round {
 
   calculatePercentCorrect() {
     var correct = this.turns - this.incorrectGuesses.length;
-    this.percent = ((correct / this.turns).toFixed(2)*100);
+    this.percent = ((correct / this.turns).toFixed(2) * 100);
   }
 
   endRound() {
-    console.log( `** Round over! ** You answered ${this.percent}% of the questions correctly!`);
+    // eslint-disable-next-line no-console
+    console.log( `** Round over! ** You answered ${this.percent}% of the` +
+       ` questions correctly!`);
   }
 }
 

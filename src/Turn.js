@@ -15,7 +15,8 @@ class Turn {
   }
 
   evaluateGuess() {
-    this.guess === this.correctAnswer ? this.correct = true : this.correct = false;
+    this.guess === this.correctAnswer ? this.correct = true : this.correct =
+     false;
     return this.correct;
   }
 
