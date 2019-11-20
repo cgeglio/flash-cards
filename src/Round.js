@@ -10,7 +10,11 @@ class Round {
   }
 
   returnCurrentCard() {
-    return this.currentCard;
+    if (this.currentCard === this.deck.cards[30]) {
+      this.calculatePercentCorrect();
+    } else {
+      return this.currentCard;
+    }
   }
 
   takeTurn(guess) {
@@ -24,17 +28,21 @@ class Round {
     this.turns++;
     this.currentCard = this.deck.cards[`${this.turns}`];
 
-    return turn.giveFeedback();
+    return (turn.giveFeedback());
+
+    // if (this.turns === 30) {
+    //   console.log('here');
+    //   this.calculatePercentCorrect();
+    // }
   }
 
   calculatePercentCorrect() {
     var correct = this.turns - this.incorrectGuesses.length;
     this.percent = ((correct / this.turns).toFixed(2)*100);
-    this.endRound();
   }
 
   endRound() {
-    return `** Round over! ** You answered ${this.percent}% of the questions correctly!`;
+    console.log( `** Round over! ** You answered ${this.percent}% of the questions correctly!`);
   }
 }
 
