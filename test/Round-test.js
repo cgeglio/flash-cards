@@ -88,9 +88,8 @@ describe('Round', function() {
     round.takeTurn('sea otter');
     round.takeTurn('spleen');
     round.takeTurn('Fitzgerald');
-    round.calculatePercentCorrect()
-    expect(round.endRound()).to.equal('** Round over! ** You answered 67% of the questions correctly!');
+    round.calculatePercentCorrect();
+    expect(round.percent).to.equal(67);
   });
-
 
 });

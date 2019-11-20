@@ -29,11 +29,6 @@ class Round {
     this.currentCard = this.deck.cards[`${this.turns}`];
 
     return (turn.giveFeedback());
-
-    // if (this.turns === 30) {
-    //   console.log('here');
-    //   this.calculatePercentCorrect();
-    // }
   }
 
   calculatePercentCorrect() {
