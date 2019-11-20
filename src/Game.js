@@ -14,7 +14,7 @@ class Game {
 
   start() {
     for (var i = 0; i < prototypeQuestions.length; i++) {
-      var card = new Card(prototypeQuestions[i]);
+      var card = new Card(prototypeQuestions[i].id, prototypeQuestions[i].question, prototypeQuestions[i].answers, prototypeQuestions[i].correctAnswer);
       this.cards.push(card);
     }
 
