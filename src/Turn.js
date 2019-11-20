@@ -20,7 +20,7 @@ class Turn {
   }
 
   giveFeedback() {
-    return (this.correct ? "correct!" : "incorrect!")
+    return (this.correct ? "correct!" : "incorrect!");
   }
 }
 
