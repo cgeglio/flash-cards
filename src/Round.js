@@ -1,5 +1,4 @@
 const Turn = require('../src/Turn');
-const Game = require('../src/Game');
 
 class Round {
   constructor(deck, startTime) {
@@ -55,7 +54,8 @@ class Round {
     var minutes = Math.floor(time / 60);
     var seconds = time - minutes * 60;
     // eslint-disable-next-line no-console
-    console.log( `Your time this round was ${minutes} minutes and ${seconds} seconds!`);
+    console.log( `Your time this round was ${minutes} minutes and ${seconds}` +
+      ` seconds!`);
   }
 }
 
