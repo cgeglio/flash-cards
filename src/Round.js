@@ -37,6 +37,15 @@ class Round {
   calculatePercentCorrect() {
     var correct = this.turns - this.incorrectGuesses.length;
     this.percent = ((correct / this.turns).toFixed(2) * 100);
+    if (this.percent < 90) {
+      this.turns = 0;
+      this.currentCard = this.deck.cards[0];
+      // eslint-disable-next-line no-console
+      console.log(`\n || TRY AGAIN || \n You answered ${this.percent}% of the` +
+         ` questions correctly. See if you can get above 90% this time!` +
+         `\n \n Welcome to back to FlashCards! You are playing with 30 cards.` +
+         `\n ----------------------------------------------------------------`);
+    }
   }
 
   endRound() {

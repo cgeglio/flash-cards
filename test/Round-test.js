@@ -95,10 +95,19 @@ describe('Round', function() {
     expect(round.percent).to.equal(67);
   });
 
-  it('should calculate how much time it took to complete the round', function() {
+  it('should calculate how much time it took to complete the round',
+    function() {
+      round.endRound();
+      expect(round.findTime()).to.equal((round.endTime - round.startTime)
+      / 1000);
+    });
 
-    round.endRound();
-    expect(round.findTime()).to.equal((round.endTime - round.startTime)/ 1000);
+  it('should restart the game if the user got less than 90%', function() {
+    round.takeTurn('sea otter');
+    round.takeTurn('spleen');
+    round.takeTurn('Fitzgerald');
+    round.calculatePercentCorrect();
+    expect(round.turns).to.equal(0);
   });
 
 });
