@@ -10,7 +10,7 @@ This program allows a user to go through a set of flash cards using the command 
 
 ## Setup
 
-- Fork and clone down the forked FlashCard repo.
+- Fork and clone down the FlashCard repo.
 - Once you have cloned the repo, change into the directory.
 - Run [node index.js] in the terminal to begin playing.
 - Use arrow keys to select an answer.
