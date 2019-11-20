@@ -7,7 +7,7 @@ class Round {
     this.currentCard = deck.cards[0];
     this.incorrectGuesses = [];
     this.percent = 0;
-    this.startTime = startTime;
+    this.startTime = startTime || 0;
     this.endTime;
   }
 
@@ -56,6 +56,7 @@ class Round {
     // eslint-disable-next-line no-console
     console.log( `Your time this round was ${minutes} minutes and ${seconds}` +
       ` seconds!`);
+    return timeDiff;
   }
 }
 

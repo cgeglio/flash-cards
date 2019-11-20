@@ -95,4 +95,10 @@ describe('Round', function() {
     expect(round.percent).to.equal(67);
   });
 
+  it('should calculate how much time it took to complete the round', function() {
+
+    round.endRound();
+    expect(round.findTime()).to.equal((round.endTime - round.startTime)/ 1000);
+  });
+
 });
