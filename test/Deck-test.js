@@ -12,9 +12,12 @@ describe('Deck', function() {
   let deck;
 
   beforeEach(function () {
-    card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
-    card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
-    card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
+    card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter',
+      'pug', 'capybara'], 'sea otter');
+    card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix',
+      'gallbladder'], 'gallbladder');
+    card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William',
+      'Fitzgerald'], 'Fitzgerald');
     deck = new Deck([card1, card2, card3]);
   });
 
@@ -28,7 +31,9 @@ describe('Deck', function() {
 
   it('should store cards', function() {
     expect(deck.cards).to.deep.equal([card1, card2, card3]);
-    expect(deck.cards[2]).to.deep.equal({ id: 12, question: "What is Travis's middle name?", answers: [ 'Lex', 'William', 'Fitzgerald' ], correctAnswer: 'Fitzgerald'
+    expect(deck.cards[2]).to.deep.equal({ id: 12, question: "What is Travis's\
+     middle name?", answers: [ 'Lex', 'William', 'Fitzgerald' ], correctAnswer:
+      'Fitzgerald'
     });
   });
 
