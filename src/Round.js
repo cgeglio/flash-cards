@@ -1,12 +1,15 @@
 const Turn = require('../src/Turn');
+const Game = require('../src/Game');
 
 class Round {
-  constructor(deck) {
+  constructor(deck, startTime) {
     this.deck = deck;
     this.turns = 0;
     this.currentCard = deck.cards[0];
     this.incorrectGuesses = [];
     this.percent = 0;
+    this.startTime = startTime;
+    this.endTime;
   }
 
   returnCurrentCard() {
@@ -29,7 +32,6 @@ class Round {
 
     this.turns++;
     this.currentCard = this.deck.cards[`${this.turns}`];
-
     return (turn.giveFeedback());
   }
 
@@ -39,9 +41,21 @@ class Round {
   }
 
   endRound() {
+    this.endTime = new Date();
     // eslint-disable-next-line no-console
     console.log( `** Round over! ** You answered ${this.percent}% of the` +
        ` questions correctly!`);
+    this.findTime();
+  }
+
+  findTime() {
+    var timeDiff = this.endTime - this.startTime;
+    timeDiff /= 1000;
+    var time = Math.round(timeDiff);
+    var minutes = Math.floor(time / 60);
+    var seconds = time - minutes * 60;
+    // eslint-disable-next-line no-console
+    console.log( `Your time this round was ${minutes} minutes and ${seconds} seconds!`);
   }
 }
 
