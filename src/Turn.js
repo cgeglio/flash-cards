@@ -4,6 +4,7 @@ class Turn {
     this.cardInfo = cardInfo;
     this.correctAnswer = cardInfo.correctAnswer;
     this.correct = false;
+    this.count = cardInfo.id;
   }
 
   returnGuess() {
@@ -21,8 +22,13 @@ class Turn {
   }
 
   giveFeedback() {
+    this.count++;
     return (this.correct ? "correct!" : "incorrect!");
   }
+
+  // reset() {
+  //   this.count = 0;
+  // }
 }
 
 module.exports = Turn;

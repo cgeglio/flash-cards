@@ -31,7 +31,7 @@ class Round {
       this.incorrectGuesses.push(this.currentCard)
     }
 
-    this.turns++;
+    this.turns = turn.count;
     this.currentCard = this.deck.cards[`${this.turns}`];
     return (turn.giveFeedback());
   }
