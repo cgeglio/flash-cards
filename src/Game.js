@@ -15,9 +15,7 @@ class Game {
   start() {
     var startTime = new Date();
     for (var i = 0; i < prototypeQuestions.length; i++) {
-      var card = new Card(prototypeQuestions[i].id,
-        prototypeQuestions[i].question, prototypeQuestions[i].answers,
-        prototypeQuestions[i].correctAnswer);
+      var card = new Card(prototypeQuestions[i]);
       this.cards.push(card);
     }
 
