@@ -39,20 +39,40 @@ describe('Turn', function() {
     expect(turn.returnCard()).to.equal(card);
   });
 
-  it('should be able to evaluate the player\'s guess', function() {
-    expect(turn.evaluateGuess()).to.equal(false);
-    expect(turn.correct).to.equal(false);
-    turn.guess = 'object';
-    expect(turn.evaluateGuess()).to.equal(true);
-    expect(turn.correct).to.equal(true);
+  describe('evaluateGuess()', function() {
+
+    it('should evaluate if the player\'s guess is incorrect', function() {
+      expect(turn.evaluateGuess()).to.equal(false);
+    });
+
+    it('should record that the player\'s guess is incorrect', function() {
+      turn.evaluateGuess();
+      expect(turn.correct).to.equal(false);
+    });
+
+    it('should evaluate if the player\'s guess is correct', function() {
+      turn.guess = 'object';
+      expect(turn.evaluateGuess()).to.equal(true);
+    });
+
+    it('should record that the player\'s guess is correct', function() {
+      turn.guess = 'object';
+      turn.evaluateGuess();
+      expect(turn.correct).to.equal(true);
+    });
   });
 
-  it('should be able to give feedback about the player\'s guess', function() {
-    turn.evaluateGuess();
-    expect(turn.giveFeedback()).to.equal("incorrect!");
-    turn.guess = 'object';
-    turn.evaluateGuess();
-    expect(turn.giveFeedback()).to.equal("correct!");
-  });
+  describe('giveFeedback()', function() {
 
+    it('should give feedback if the player\'s guess is incorrect', function() {
+      turn.evaluateGuess();
+      expect(turn.giveFeedback()).to.equal("incorrect!");
+    });
+
+    it('should give feedback if the player\'s guess is correct', function() {
+      turn.guess = 'object';
+      turn.evaluateGuess();
+      expect(turn.giveFeedback()).to.equal("correct!");
+    });
+  });
 });
