@@ -22,3 +22,4 @@ This program allows a user to go through a set of flash cards using the command 
 - Repeat!
 - Your time and score will be shown after you have gone through all the cards.
 - If your score is less than 90%, the game will restart.
+- If your score is 90% or higher, you will have the opportunity to retry any specfic questions you got wrong.
