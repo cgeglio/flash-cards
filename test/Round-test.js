@@ -111,7 +111,8 @@ describe('Round', function() {
     expect(round.turns).to.equal(0);
   });
 
-  it('should have the user retry any questions they got wrong if the user got more than 90%', function() {
+  it('should have the user retry any questions they got wrong if the user got' +
+  ' more than 90%', function() {
     round.incorrectGuesses = [card3, card2, card1];
     round.retryIncorrect();
     expect(round.deck.cards).to.equal(round.incorrectGuesses);
