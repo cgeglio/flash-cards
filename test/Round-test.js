@@ -76,9 +76,9 @@ describe('Round', function() {
 
   it('should store each of the player\'s incorrect guesses', function() {
     round.takeTurn('capybara');
-    expect(round.incorrectGuesses[0]).to.equal(card1.id);
+    expect(round.incorrectGuesses[0]).to.equal(card1);
     round.takeTurn('appendix');
-    expect(round.incorrectGuesses[1]).to.equal(card2.id);
+    expect(round.incorrectGuesses[1]).to.equal(card2);
   });
 
   it('should return feedback based on guesses', function() {
@@ -97,7 +97,8 @@ describe('Round', function() {
 
   it('should calculate how much time it took to complete the round',
     function() {
-      round.endRound();
+      round.startTime = 10;
+      round.calculatePercentCorrect();
       expect(round.findTime()).to.equal((round.endTime - round.startTime)
       / 1000);
     });
@@ -108,6 +109,13 @@ describe('Round', function() {
     round.takeTurn('Fitzgerald');
     round.calculatePercentCorrect();
     expect(round.turns).to.equal(0);
+  });
+
+  it('should have the user retry any questions they got wrong if the user got' +
+  ' more than 90%', function() {
+    round.incorrectGuesses = [card3, card2, card1];
+    round.retryIncorrect();
+    expect(round.deck.cards).to.equal(round.incorrectGuesses);
   });
 
 });

@@ -1,4 +1,6 @@
 const Turn = require('../src/Turn');
+const Deck = require('../src/Deck');
+const util = require('./util');
 
 class Round {
   constructor(deck, startTime) {
@@ -7,7 +9,7 @@ class Round {
     this.currentCard = deck.cards[0];
     this.incorrectGuesses = [];
     this.percent = 0;
-    this.startTime = startTime || 0;
+    this.startTime = startTime;
     this.endTime;
   }
 
@@ -26,7 +28,7 @@ class Round {
     turn.evaluateGuess();
 
     if (turn.correct === false) {
-      this.incorrectGuesses.push(this.currentCard.id)
+      this.incorrectGuesses.push(this.currentCard)
     }
 
     this.turns++;
@@ -37,16 +39,19 @@ class Round {
   calculatePercentCorrect() {
     var correct = this.turns - this.incorrectGuesses.length;
     this.percent = ((correct / this.turns).toFixed(2) * 100);
+    this.endTime = new Date();
+    this.findTime();
     if (this.percent < 90) {
       this.restartRound()
+      this.incorrectGuesses = [];
     } else {
-      this.newDataGame();
+      if (this.incorrectGuesses.length) {
+        this.retryIncorrect();
+      }
     }
   }
 
   restartRound() {
-    this.endTime = new Date();
-    this.findTime();
     this.turns = 0;
     this.currentCard = this.deck.cards[0];
     // eslint-disable-next-line no-console
@@ -61,7 +66,6 @@ class Round {
     // eslint-disable-next-line no-console
     console.log( `** Round over! ** You answered ${this.percent}% of the` +
        ` questions correctly!`);
-    this.findTime();
   }
 
   findTime() {
@@ -74,6 +78,28 @@ class Round {
     console.log( `\n Your time this round was ${minutes} minutes and` +
       ` ${seconds} seconds!`);
     return timeDiff;
+  }
+
+  retryIncorrect() {
+    this.startTime = new Date();
+    this.deck = new Deck(this.incorrectGuesses);
+    this.currentRound = new Round(this.deck, this.startTime);
+    setTimeout(() => {
+      this.printMessage(this.deck, this.currentRound);
+    }, 1000);
+    setTimeout(() => {
+      this.printQuestion(this.currentRound);
+    }, 1000);
+  }
+
+  printMessage() {
+    // eslint-disable-next-line no-console
+    console.log(`\n You're almost there! Let's review the ones you missed!` +
+      `\n -------------------------------------------------------------------`);
+  }
+
+  printQuestion(round) {
+    util.main(round);
   }
 }
 
