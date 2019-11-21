@@ -4,6 +4,7 @@ const expect = chai.expect;
 const Round = require('../src/Round');
 const Deck = require('../src/Deck');
 const Card = require('../src/Card');
+const data = require('../src/data');
 
 describe('Round', function() {
 
@@ -13,18 +14,13 @@ describe('Round', function() {
   let deck;
   let round;
 
-
   beforeEach(function () {
-    card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter',
-      'pug', 'capybara'], 'sea otter');
-    card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix',
-      'gallbladder'], 'gallbladder');
-    card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William',
-      'Fitzgerald'], 'Fitzgerald');
+    card1 = new Card(data.prototypeData[0]);
+    card2 = new Card(data.prototypeData[1]);
+    card3 = new Card(data.prototypeData[2]);
     deck = new Deck([card1, card2, card3]);
     round = new Round(deck);
   });
-
 
   it('should be a function', function() {
     expect(Round).to.be.a('function');
@@ -52,45 +48,45 @@ describe('Round', function() {
 
   it('should be able to update the turn count when a player takes a turn',
     function() {
-      round.takeTurn('capybara');
+      round.takeTurn('object');
       expect(round.turns).to.equal(1);
-      round.takeTurn('sea otter');
+      round.takeTurn('array');
       expect(round.turns).to.equal(2);
     });
 
   it('should shift the current card to the next card in the deck when a player\
    takes a turn', function() {
-    round.takeTurn('capybara');
+    round.takeTurn('object');
     expect(round.currentCard).to.equal(card2);
-    round.takeTurn('sea otter');
+    round.takeTurn('array');
     expect(round.currentCard).to.equal(card3);
   });
 
   it('should shift the current card to the next card in the deck when a player\
    takes a turn', function() {
-    round.takeTurn('capybara');
+    round.takeTurn('object');
     expect(round.currentCard).to.equal(card2);
-    round.takeTurn('sea otter');
+    round.takeTurn('array');
     expect(round.currentCard).to.equal(card3);
   });
 
   it('should store each of the player\'s incorrect guesses', function() {
-    round.takeTurn('capybara');
+    round.takeTurn('function');
     expect(round.incorrectGuesses[0]).to.equal(card1);
-    round.takeTurn('appendix');
+    round.takeTurn('function');
     expect(round.incorrectGuesses[1]).to.equal(card2);
   });
 
   it('should return feedback based on guesses', function() {
-    expect(round.takeTurn('sea otter')).to.equal("correct!");
-    expect(round.takeTurn('spleen')).to.equal("incorrect!");
-    expect(round.takeTurn('Fitzgerald')).to.equal("correct!");
+    expect(round.takeTurn('object')).to.equal("correct!");
+    expect(round.takeTurn('function')).to.equal("incorrect!");
+    expect(round.takeTurn('mutator method')).to.equal("correct!");
   });
 
   it('should calculate the percentage of correct answers', function() {
-    round.takeTurn('sea otter');
-    round.takeTurn('spleen');
-    round.takeTurn('Fitzgerald');
+    round.takeTurn('object');
+    round.takeTurn('function');
+    round.takeTurn('mutator method');
     round.calculatePercentCorrect();
     expect(round.percent).to.equal(67);
   });
@@ -104,9 +100,9 @@ describe('Round', function() {
     });
 
   it('should restart the game if the user got less than 90%', function() {
-    round.takeTurn('sea otter');
-    round.takeTurn('spleen');
-    round.takeTurn('Fitzgerald');
+    round.takeTurn('object');
+    round.takeTurn('function');
+    round.takeTurn('mutator method');
     round.calculatePercentCorrect();
     expect(round.turns).to.equal(0);
   });
