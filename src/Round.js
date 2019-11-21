@@ -39,10 +39,14 @@ class Round {
     this.percent = ((correct / this.turns).toFixed(2) * 100);
     if (this.percent < 90) {
       this.restartRound()
+    } else {
+      this.newDataGame();
     }
   }
 
   restartRound() {
+    this.endTime = new Date();
+    this.findTime();
     this.turns = 0;
     this.currentCard = this.deck.cards[0];
     // eslint-disable-next-line no-console
@@ -67,8 +71,8 @@ class Round {
     var minutes = Math.floor(time / 60);
     var seconds = time - minutes * 60;
     // eslint-disable-next-line no-console
-    console.log( `Your time this round was ${minutes} minutes and ${seconds}` +
-      ` seconds!`);
+    console.log( `\n Your time this round was ${minutes} minutes and` +
+      ` ${seconds} seconds!`);
     return timeDiff;
   }
 }
