@@ -4,6 +4,7 @@ const expect = chai.expect;
 const Round = require('../src/Round');
 const Deck = require('../src/Deck');
 const Card = require('../src/Card');
+const Turn = require('../src/Turn');
 const data = require('../src/data');
 
 describe('Round', function() {
@@ -42,45 +43,70 @@ describe('Round', function() {
     expect(round.currentCard).to.equal(card1);
   });
 
+  it('should start with no incorrect guesses', function() {
+    expect(round.incorrectGuesses).to.deep.equal([]);
+  });
+
+  it('should store the percent of questions answered correctly, with a default of 0', function() {
+    expect(round.percent).to.equal(0);
+  });
+
   it('should be able to return the current card in play', function() {
     expect(round.returnCurrentCard()).to.equal(card1);
   });
 
-  it('should increase the turn count after the player takes a turn',
-    function() {
-      round.takeTurn('object');
-      expect(round.turns).to.equal(1);
+  describe('takeTurn()', function() {
+
+    it('should store each of the player\'s incorrect guesses', function() {
+      round.takeTurn('function');
+      expect(round.incorrectGuesses[0]).to.equal(card1);
     });
 
-  it('should shift the current card to the next card in the deck after the\
-   player takes a turn', function() {
-    round.takeTurn('object');
-    expect(round.currentCard).to.equal(card2);
+    it('should return feedback if a guess is incorrect', function() {
+      expect(round.takeTurn('function')).to.equal("incorrect!");
+    });
+
+    it('should return feedback if a guess is correct', function() {
+      expect(round.takeTurn('object')).to.equal("correct!");
+    });
   });
 
-  it('should shift the current card to the next card in the deck when the \
-   player takes a turn', function() {
-    round.takeTurn('object');
-    expect(round.currentCard).to.equal(card2);
+  describe('updateTurn()', function() {
+
+    beforeEach(function () {
+      turn = new Turn('array', card1);
+    });
+
+    it('should increase the turn count after the player takes a turn',
+      function() {
+        round.updateTurn(turn);
+        expect(round.turns).to.equal(1);
+      });
+
+    it('should shift the current card to the next card in the deck after the\
+     player takes a turn', function() {
+       round.updateTurn(turn);
+       expect(round.currentCard).to.equal(card2);
+    });
   });
 
-  it('should store each of the player\'s incorrect guesses', function() {
-    round.takeTurn('function');
-    expect(round.incorrectGuesses[0]).to.equal(card1);
-  });
+  describe('calculatePercentCorrect()', function() {
 
-  it('should return feedback based on guesses', function() {
-    expect(round.takeTurn('object')).to.equal("correct!");
-    expect(round.takeTurn('function')).to.equal("incorrect!");
-    expect(round.takeTurn('mutator method')).to.equal("correct!");
-  });
+    it('should calculate the percentage of correct answers', function() {
+      round.takeTurn('object');
+      round.takeTurn('function');
+      round.takeTurn('mutator method');
+      round.calculatePercentCorrect();
+      expect(round.percent).to.equal(67);
+    });
 
-  it('should calculate the percentage of correct answers', function() {
-    round.takeTurn('object');
-    round.takeTurn('function');
-    round.takeTurn('mutator method');
-    round.calculatePercentCorrect();
-    expect(round.percent).to.equal(67);
+    it('should clear out the incorrect guesses if the score is less than 90', function() {
+      round.takeTurn('object');
+      round.takeTurn('function');
+      round.takeTurn('mutator method');
+      round.calculatePercentCorrect();
+      expect(round.incorrectGuesses).to.deep.equal([]);
+    });
   });
 
   it('should calculate how much time it took to complete the round',
@@ -91,19 +117,29 @@ describe('Round', function() {
       / 1000);
     });
 
-  it('should restart the game if the user got less than 90%', function() {
-    round.takeTurn('object');
-    round.takeTurn('function');
-    round.takeTurn('mutator method');
-    round.calculatePercentCorrect();
-    expect(round.turns).to.equal(0);
+  describe('restartRound()', function() {
+
+    it('should reset the turn count if the user got less than 90%', function() {
+      round.takeTurn('object');
+      round.takeTurn('function');
+      round.takeTurn('mutator method');
+      round.calculatePercentCorrect();
+      expect(round.turns).to.equal(0);
+    });
+
+    it('should reset the current card to the first card in the deck', function() {
+      round.takeTurn('object');
+      round.takeTurn('function');
+      round.takeTurn('mutator method');
+      round.calculatePercentCorrect();
+      expect(round.currentCard).to.equal(card1);
+    });
+
   });
 
-  it('should have the user retry any questions they got wrong if the user got' +
-  ' more than 90%', function() {
+  it('should reset the deck to only hold the questions that were answered incorrectly if the user got 90% or more correct', function() {
     round.incorrectGuesses = [card3, card2, card1];
     round.retryIncorrect();
     expect(round.deck.cards).to.equal(round.incorrectGuesses);
   });
-
 });

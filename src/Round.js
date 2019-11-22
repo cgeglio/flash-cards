@@ -28,11 +28,11 @@ class Round {
       this.incorrectGuesses.push(this.currentCard)
     }
 
-    this.updateTurns(turn);
+    this.updateTurn(turn);
     return (turn.giveFeedback());
   }
 
-  updateTurns(turn) {
+  updateTurn(turn) {
     this.turns = turn.count;
     this.currentCard = this.deck.cards[`${this.turns}`];
     turn.updateCount();
@@ -53,16 +53,6 @@ class Round {
     }
   }
 
-  restartRound() {
-    this.turns = 0;
-    this.currentCard = this.deck.cards[0];
-    // eslint-disable-next-line no-console
-    console.log(`\n || TRY AGAIN || \n You answered ${this.percent}% of the` +
-       ` questions correctly. See if you can get above 90% this time!` +
-       `\n \n Welcome back to FlashCards! You are playing with 30 cards.` +
-       `\n ----------------------------------------------------------------`);
-  }
-
   endRound() {
     this.endTime = new Date();
     // eslint-disable-next-line no-console
@@ -80,6 +70,16 @@ class Round {
     console.log( `\n Your time this round was ${minutes} minutes and` +
       ` ${seconds} seconds!`);
     return timeDiff;
+  }
+
+  restartRound() {
+    this.turns = 0;
+    this.currentCard = this.deck.cards[0];
+    // eslint-disable-next-line no-console
+    console.log(`\n || TRY AGAIN || \n You answered ${this.percent}% of the` +
+       ` questions correctly. See if you can get above 90% this time!` +
+       `\n \n Welcome back to FlashCards! You are playing with 30 cards.` +
+       `\n ----------------------------------------------------------------`);
   }
 
   retryIncorrect() {
