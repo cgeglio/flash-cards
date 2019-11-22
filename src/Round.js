@@ -23,17 +23,19 @@ class Round {
 
   takeTurn(guess) {
     var turn = new Turn(guess, this.currentCard);
-    turn.returnGuess();
-    turn.returnCard();
     turn.evaluateGuess();
-
     if (turn.correct === false) {
       this.incorrectGuesses.push(this.currentCard)
     }
 
+    this.updateTurns(turn);
+    return (turn.giveFeedback());
+  }
+
+  updateTurns(turn) {
     this.turns = turn.count;
     this.currentCard = this.deck.cards[`${this.turns}`];
-    return (turn.giveFeedback());
+    turn.updateCount();
   }
 
   calculatePercentCorrect() {

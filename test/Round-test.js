@@ -46,35 +46,27 @@ describe('Round', function() {
     expect(round.returnCurrentCard()).to.equal(card1);
   });
 
-  it('should be able to update the turn count when a player takes a turn',
+  it('should increase the turn count after the player takes a turn',
     function() {
       round.takeTurn('object');
       expect(round.turns).to.equal(1);
-      round.takeTurn('array');
-      expect(round.turns).to.equal(2);
     });
 
-  it('should shift the current card to the next card in the deck when a player\
-   takes a turn', function() {
+  it('should shift the current card to the next card in the deck after the\
+   player takes a turn', function() {
     round.takeTurn('object');
     expect(round.currentCard).to.equal(card2);
-    round.takeTurn('array');
-    expect(round.currentCard).to.equal(card3);
   });
 
-  it('should shift the current card to the next card in the deck when a player\
-   takes a turn', function() {
+  it('should shift the current card to the next card in the deck when the \
+   player takes a turn', function() {
     round.takeTurn('object');
     expect(round.currentCard).to.equal(card2);
-    round.takeTurn('array');
-    expect(round.currentCard).to.equal(card3);
   });
 
   it('should store each of the player\'s incorrect guesses', function() {
     round.takeTurn('function');
     expect(round.incorrectGuesses[0]).to.equal(card1);
-    round.takeTurn('function');
-    expect(round.incorrectGuesses[1]).to.equal(card2);
   });
 
   it('should return feedback based on guesses', function() {
