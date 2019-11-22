@@ -38,7 +38,7 @@ class Round {
       if (this.currentCard === this.deck.cards[i]) {
         i++;
         this.currentCard = this.deck.cards[i];
-      };
+      }
     }
     turn.updateCount();
   }
@@ -102,8 +102,6 @@ class Round {
     setTimeout(() => {
       this.printQuestion(this.currentRound);
     }, 1000);
-    console.log(this.deck);
-    console.log(this.currentCard)
   }
 
   printMessage() {
