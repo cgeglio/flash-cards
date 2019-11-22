@@ -14,16 +14,14 @@ class Game {
 
   start() {
     var startTime = new Date();
+
     for (var i = 0; i < prototypeQuestions.length; i++) {
-      var card = new Card(prototypeQuestions[i].id,
-        prototypeQuestions[i].question, prototypeQuestions[i].answers,
-        prototypeQuestions[i].correctAnswer);
+      var card = new Card(prototypeQuestions[i]);
       this.cards.push(card);
     }
 
     this.deck = new Deck(this.cards);
     this.currentRound = new Round(this.deck, startTime);
-
     this.printMessage(this.deck, this.currentRound);
     this.printQuestion(this.currentRound);
   }
@@ -38,8 +36,6 @@ class Game {
   printQuestion(round) {
     util.main(round);
   }
-
-
 }
 
 module.exports = Game;

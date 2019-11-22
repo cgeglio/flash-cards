@@ -3,6 +3,7 @@ const expect = chai.expect;
 
 const Turn = require('../src/Turn');
 const Card = require('../src/Card');
+const data = require('../src/data');
 
 describe('Turn', function() {
 
@@ -10,9 +11,8 @@ describe('Turn', function() {
   let turn;
 
   beforeEach(function () {
-    card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug',
-      'capybara'], 'sea otter');
-    turn = new Turn('pug', card);
+    card = new Card(data.prototypeData[0]);
+    turn = new Turn('array', card);
   });
 
   it('should be a function', function() {
@@ -24,39 +24,65 @@ describe('Turn', function() {
   });
 
   it('should store a guess', function() {
-    expect(turn.guess).to.equal('pug');
+    expect(turn.guess).to.equal('array');
   });
 
   it('should store the card in play', function() {
     expect(turn.cardInfo).to.equal(card);
   });
 
-  it('should be able to return the player\'s guess', function() {
-    expect(turn.returnGuess()).to.equal('pug');
-  });
-
-  it('should be able to return the card in play', function() {
-    expect(turn.returnCard()).to.equal(card);
-  });
-
-  it('should be able to return the card in play', function() {
-    expect(turn.returnCard()).to.equal(card);
-  });
-
-  it('should be able to evaluate the player\'s guess', function() {
-    expect(turn.evaluateGuess()).to.equal(false);
+  it('should store if the current guess is correct or not, with a default of\
+   false', function() {
     expect(turn.correct).to.equal(false);
-    turn.guess = 'sea otter';
-    expect(turn.evaluateGuess()).to.equal(true);
-    expect(turn.correct).to.equal(true);
   });
 
-  it('should be able to give feedback about the player\'s guess', function() {
-    turn.evaluateGuess();
-    expect(turn.giveFeedback()).to.equal("incorrect!");
-    turn.guess = 'sea otter';
-    turn.evaluateGuess();
-    expect(turn.giveFeedback()).to.equal("correct!");
+  it('should be able to return the player\'s guess', function() {
+    expect(turn.returnGuess()).to.equal('array');
   });
 
+  it('should be able to return the card in play', function() {
+    expect(turn.returnCard()).to.equal(card);
+  });
+
+  describe('evaluateGuess()', function() {
+
+    it('should evaluate if the player\'s guess is incorrect', function() {
+      expect(turn.evaluateGuess()).to.equal(false);
+    });
+
+    it('should record that the player\'s guess is incorrect', function() {
+      turn.evaluateGuess();
+      expect(turn.correct).to.equal(false);
+    });
+
+    it('should evaluate if the player\'s guess is correct', function() {
+      turn.guess = 'object';
+      expect(turn.evaluateGuess()).to.equal(true);
+    });
+
+    it('should record that the player\'s guess is correct', function() {
+      turn.guess = 'object';
+      turn.evaluateGuess();
+      expect(turn.correct).to.equal(true);
+    });
+  });
+
+  describe('giveFeedback()', function() {
+
+    it('should give feedback if the player\'s guess is incorrect', function() {
+      turn.evaluateGuess();
+      expect(turn.giveFeedback()).to.equal("incorrect!");
+    });
+
+    it('should give feedback if the player\'s guess is correct', function() {
+      turn.guess = 'object';
+      turn.evaluateGuess();
+      expect(turn.giveFeedback()).to.equal("correct!");
+    });
+  });
+
+  it('should update its count after each turn', function() {
+    turn.updateCount()
+    expect(turn.count).to.equal(2);
+  });
 });

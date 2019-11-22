@@ -14,7 +14,7 @@ class Round {
   }
 
   returnCurrentCard() {
-    if (this.currentCard === this.deck.cards[30]) {
+    if (this.currentCard === undefined) {
       this.calculatePercentCorrect();
     } else {
       return this.currentCard;
@@ -23,17 +23,24 @@ class Round {
 
   takeTurn(guess) {
     var turn = new Turn(guess, this.currentCard);
-    turn.returnGuess();
-    turn.returnCard();
     turn.evaluateGuess();
-
     if (turn.correct === false) {
       this.incorrectGuesses.push(this.currentCard)
     }
 
-    this.turns++;
-    this.currentCard = this.deck.cards[`${this.turns}`];
+    this.updateTurn(turn);
     return (turn.giveFeedback());
+  }
+
+  updateTurn(turn) {
+    this.turns = turn.count;
+    for (var i = 0; i < this.deck.cards.length; i++) {
+      if (this.currentCard === this.deck.cards[i]) {
+        i++;
+        this.currentCard = this.deck.cards[i];
+      }
+    }
+    turn.updateCount();
   }
 
   calculatePercentCorrect() {
@@ -46,19 +53,11 @@ class Round {
       this.incorrectGuesses = [];
     } else {
       if (this.incorrectGuesses.length) {
-        this.retryIncorrect();
+        setTimeout(() => {
+          this.retryIncorrect();
+        }, 500);
       }
     }
-  }
-
-  restartRound() {
-    this.turns = 0;
-    this.currentCard = this.deck.cards[0];
-    // eslint-disable-next-line no-console
-    console.log(`\n || TRY AGAIN || \n You answered ${this.percent}% of the` +
-       ` questions correctly. See if you can get above 90% this time!` +
-       `\n \n Welcome back to FlashCards! You are playing with 30 cards.` +
-       `\n ----------------------------------------------------------------`);
   }
 
   endRound() {
@@ -80,10 +79,23 @@ class Round {
     return timeDiff;
   }
 
+  restartRound() {
+    this.turns = 0;
+    this.currentCard = this.deck.cards[0];
+    // eslint-disable-next-line no-console
+    console.log(`\n || TRY AGAIN || \n You answered ${this.percent}% of the` +
+       ` questions correctly. See if you can get above 90% this time!` +
+       `\n \n Welcome back to FlashCards! You are playing with 30 cards.` +
+       `\n ----------------------------------------------------------------`);
+  }
+
   retryIncorrect() {
     this.startTime = new Date();
     this.deck = new Deck(this.incorrectGuesses);
     this.currentRound = new Round(this.deck, this.startTime);
+    this.currentCard = this.deck.cards[0];
+    // this.incorrectGuesses = [];
+    this.percent = 0;
     setTimeout(() => {
       this.printMessage(this.deck, this.currentRound);
     }, 1000);

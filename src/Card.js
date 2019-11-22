@@ -1,12 +1,10 @@
 class Card {
-  constructor(id, question, answers, correctAnswer) {
-    this.id = id;
-    this.question = question;
-    this.answers = answers;
-    this.correctAnswer = correctAnswer;
+  constructor(card) {
+    this.id = card.id;
+    this.question = card.question;
+    this.answers = card.answers;
+    this.correctAnswer = card.correctAnswer;
   }
 }
-
-
 
 module.exports = Card;
