@@ -47,7 +47,8 @@ describe('Round', function() {
     expect(round.incorrectGuesses).to.deep.equal([]);
   });
 
-  it('should store the percent of questions answered correctly, with a default of 0', function() {
+  it('should store the percent of questions answered correctly, with a default\
+   of 0', function() {
     expect(round.percent).to.equal(0);
   });
 
@@ -73,6 +74,8 @@ describe('Round', function() {
 
   describe('updateTurn()', function() {
 
+    let turn;
+
     beforeEach(function () {
       turn = new Turn('array', card1);
     });
@@ -85,8 +88,8 @@ describe('Round', function() {
 
     it('should shift the current card to the next card in the deck after the\
      player takes a turn', function() {
-       round.updateTurn(turn);
-       expect(round.currentCard).to.equal(card2);
+      round.updateTurn(turn);
+      expect(round.currentCard).to.equal(card2);
     });
   });
 
@@ -100,13 +103,14 @@ describe('Round', function() {
       expect(round.percent).to.equal(67);
     });
 
-    it('should clear out the incorrect guesses if the score is less than 90', function() {
-      round.takeTurn('object');
-      round.takeTurn('function');
-      round.takeTurn('mutator method');
-      round.calculatePercentCorrect();
-      expect(round.incorrectGuesses).to.deep.equal([]);
-    });
+    it('should clear out the incorrect guesses if the score is less than 90',
+      function() {
+        round.takeTurn('object');
+        round.takeTurn('function');
+        round.takeTurn('mutator method');
+        round.calculatePercentCorrect();
+        expect(round.incorrectGuesses).to.deep.equal([]);
+      });
   });
 
   it('should calculate how much time it took to complete the round',
@@ -127,17 +131,19 @@ describe('Round', function() {
       expect(round.turns).to.equal(0);
     });
 
-    it('should reset the current card to the first card in the deck', function() {
-      round.takeTurn('object');
-      round.takeTurn('function');
-      round.takeTurn('mutator method');
-      round.calculatePercentCorrect();
-      expect(round.currentCard).to.equal(card1);
-    });
+    it('should reset the current card to the first card in the deck',
+      function() {
+        round.takeTurn('object');
+        round.takeTurn('function');
+        round.takeTurn('mutator method');
+        round.calculatePercentCorrect();
+        expect(round.currentCard).to.equal(card1);
+      });
 
   });
 
-  it('should reset the deck to only hold the questions that were answered incorrectly if the user got 90% or more correct', function() {
+  it('should reset the deck to only hold the questions that were answered\
+   incorrectly if the user got 90% or more correct', function() {
     round.incorrectGuesses = [card3, card2, card1];
     round.retryIncorrect();
     expect(round.deck.cards).to.equal(round.incorrectGuesses);

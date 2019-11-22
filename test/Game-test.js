@@ -37,9 +37,10 @@ describe('Game', function() {
     expect(game.deck.cards.length).to.equal(30);
   });
 
-  it('should create and store a new round at the start of each game', function() {
-    game.start();
-    expect(game.currentRound.deck).to.equal(game.deck);
-  });
+  it('should create and store a new round at the start of each game',
+    function() {
+      game.start();
+      expect(game.currentRound.deck).to.equal(game.deck);
+    });
 
 });

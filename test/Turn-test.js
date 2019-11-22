@@ -31,7 +31,8 @@ describe('Turn', function() {
     expect(turn.cardInfo).to.equal(card);
   });
 
-  it('should store if the current guess is correct or not, with a default of false', function() {
+  it('should store if the current guess is correct or not, with a default of\
+   false', function() {
     expect(turn.correct).to.equal(false);
   });
 
