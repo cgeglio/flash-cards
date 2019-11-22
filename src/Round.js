@@ -14,7 +14,7 @@ class Round {
   }
 
   returnCurrentCard() {
-    if (this.currentCard === this.deck.cards[30]) {
+    if (this.currentCard === undefined) {
       this.calculatePercentCorrect();
     } else {
       return this.currentCard;
@@ -34,7 +34,12 @@ class Round {
 
   updateTurn(turn) {
     this.turns = turn.count;
-    this.currentCard = this.deck.cards[`${this.turns}`];
+    for (var i = 0; i < this.deck.cards.length; i++) {
+      if (this.currentCard === this.deck.cards[i]) {
+        i++;
+        this.currentCard = this.deck.cards[i];
+      };
+    }
     turn.updateCount();
   }
 
@@ -48,7 +53,9 @@ class Round {
       this.incorrectGuesses = [];
     } else {
       if (this.incorrectGuesses.length) {
-        this.retryIncorrect();
+        setTimeout(() => {
+          this.retryIncorrect();
+        }, 500);
       }
     }
   }
@@ -86,12 +93,17 @@ class Round {
     this.startTime = new Date();
     this.deck = new Deck(this.incorrectGuesses);
     this.currentRound = new Round(this.deck, this.startTime);
+    this.currentCard = this.deck.cards[0];
+    // this.incorrectGuesses = [];
+    this.percent = 0;
     setTimeout(() => {
       this.printMessage(this.deck, this.currentRound);
     }, 1000);
     setTimeout(() => {
       this.printQuestion(this.currentRound);
     }, 1000);
+    console.log(this.deck);
+    console.log(this.currentCard)
   }
 
   printMessage() {
