@@ -14,6 +14,7 @@ class Game {
 
   start() {
     var startTime = new Date();
+
     for (var i = 0; i < prototypeQuestions.length; i++) {
       var card = new Card(prototypeQuestions[i]);
       this.cards.push(card);
@@ -21,7 +22,6 @@ class Game {
 
     this.deck = new Deck(this.cards);
     this.currentRound = new Round(this.deck, startTime);
-
     this.printMessage(this.deck, this.currentRound);
     this.printQuestion(this.currentRound);
   }

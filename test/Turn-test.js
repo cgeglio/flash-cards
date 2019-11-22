@@ -31,6 +31,10 @@ describe('Turn', function() {
     expect(turn.cardInfo).to.equal(card);
   });
 
+  it('should store if the current guess is correct or not, with a default of false', function() {
+    expect(turn.correct).to.equal(false);
+  });
+
   it('should be able to return the player\'s guess', function() {
     expect(turn.returnGuess()).to.equal('array');
   });
@@ -74,5 +78,10 @@ describe('Turn', function() {
       turn.evaluateGuess();
       expect(turn.giveFeedback()).to.equal("correct!");
     });
+  });
+
+  it('should update its count after each turn', function() {
+    turn.updateCount()
+    expect(turn.count).to.equal(2);
   });
 });

@@ -29,12 +29,6 @@ describe('Deck', function() {
 
   it('should store cards', function() {
     expect(deck.cards).to.deep.equal([card1, card2, card3]);
-    expect(deck.cards[1]).to.deep.equal({
-      "id": 2,
-      "question": "What is a comma-separated list of related values?",
-      "answers": ["array", "object", "function"],
-      "correctAnswer": "array"
-    });
   });
 
   it('should be able to count the number of cards its storing', function() {
